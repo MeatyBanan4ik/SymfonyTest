@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Посты{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col"><h3>Посты:</h3></div>
+            {% if app.user %}
+                <div class="col-auto    "><a href="{{ path('post_add') }}" class="btn btn-primary">Добавить пост</a></div>
+            {% endif %}
+        </div>
+        <table class="table mt-5" style="width: 100%;">
+            <tr>
+                <th>id</th>
+                <th>Картинка</th>
+                <th>Название</th>
+                <th>Автор</th>
+                <th></th>
+            </tr>
+            {% for post in posts %}
+                <tr>
+                    <td> {{ post.id }} </td>
+                    <td> <img src="
+                        {% if post.getImage() %}
+                            {{ asset(post.getImage()) }}
+                        {% else %}
+                            {{ asset('assets/image/default.png') }}
+                        {% endif %}
+                    " alt="" style="max-width: 100px; max-height: 100px; object-fit: contain"> </td>
+                    <td> {{ post.title }} </td>
+                    <td> {{ post.author.email }} </td>
+                    <td>
+                        <a href="{{ path('post_show', {id: post.id}) }}" class="btn btn-outline-info">Посмотреть</a>
+                        {% if app.user %}
+                            {% if post.author.id is same as(app.user.id)  %}
+                                <a href="{{ path('post_edit', {id: post.id}) }}" class="btn btn-outline-warning">Edit</a>
+                            {% endif %}
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+        <div class="navigation">
+            {{ knp_pagination_render(posts) }}
+        </div>
+
+    </div>
+{% endblock %}

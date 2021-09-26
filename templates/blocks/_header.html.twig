@@ -1,0 +1,13 @@
+<div class="row align-items-center p-3">
+    <div class="col ml-5">
+        <a href="{{ path('homepage') }}">Главная</a>
+    </div>
+    <div class="col-auto mr-5">
+        {% if app.user %}
+            <a href="{{ path('app_logout') }}" class="btn btn-danger">Выйти</a>
+        {% else %}
+            <a href="{{ path('app_login') }}" class="btn btn-success">Войти</a>
+            <a href="{{ path('app_register') }}" class="btn btn-dark">Зарегистрироваться</a>
+        {% endif %}
+    </div>
+</div>

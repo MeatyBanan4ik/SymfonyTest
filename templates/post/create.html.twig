@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Создать пост{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h2>Создать пост</h2>
+
+        {{ form_start(form) }}
+            {{ form_row(form.title) }}
+            {{ form_row(form.content) }}
+            {{ form_row(form.image) }}
+            <button class="btn btn-success">Запостить</button>
+        {{ form_end(form) }}
+
+    </div>
+{% endblock %}

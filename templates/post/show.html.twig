@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Пост {{ post.id }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2>Название: {{ post.title }}</h2>
+            </div>
+            {% if app.user %}
+                {% if post.author.id is same as(app.user.id)  %}
+                    <div class="col-auto">
+                        <a href="{{ path('post_edit', {id: post.id}) }}" class="btn btn-outline-warning">Edit</a>
+                    </div>
+                {% endif %}
+            {% endif %}
+        </div>
+
+        <img src="
+                {% if post.getImage() %}
+                    {{ asset(post.getImage()) }}
+                {% else %}
+                    {{ asset('assets/image/default.png') }}
+                {% endif %}
+            " alt="" style="max-width: 200px; max-height: 200px; object-fit: contain">
+        <h2>Контент: </h2>
+        <p class="ml-5">{{ post.content }}</p>
+
+    </div>
+{% endblock %}
